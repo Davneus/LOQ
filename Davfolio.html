@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dav Neus - Portafolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        section {
+            padding: 20px;
+            margin: 20px 0;
+            background: #fff;
+            border-radius: 5px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .galeria {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .imagen {
+            width: 30%;
+            height: 200px;
+            background-color: #eaeaea;
+            border-radius: 5px;
+            transition: transform 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .imagen:hover {
+            transform: scale(1.05);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #333;
+            color: #fff;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.7);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Dav Neus</h1>
+        <nav>
+            <ul>
+                <li><a href="#sobre-mi">Sobre Mí</a></li>
+                <li><a href="#portafolio">Portafolio</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="inicio">
+        <h2>Bienvenido a mi portafolio</h2>
+        <p>Explora mis trabajos y proyectos.</p>
+    </section>
+
+    <section id="sobre-mi">
+        <h2>Sobre Mí</h2>
+        <p>Aquí puedes escribir una breve descripción sobre ti.</p>
+    </section>
+
+    <section id="portafolio">
+        <h2>Portafolio</h2>
+        <div class="galeria">
+            <div class="imagen" id="imagen1" onclick="mostrarProyecto(1)">Proyecto 1</div>
+            <div class="imagen" id="imagen2" onclick="mostrarProyecto(2)">Proyecto 2</div>
+            <div class="imagen" id="imagen3" onclick="mostrarProyecto(3)">Proyecto 3</div>
+        </div>
+    </section>
+
+    <section id="servicios">
+        <h2>Servicios</h2>
+        <p>Descripción de los servicios que ofreces.</p>
+    </section>
+
+    <section id="contacto">
+        <h2>Contacto</h2>
+        <form>
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <button type="submit">Enviar</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>© 2024 Dav Neus. Todos los derechos reservados.</p>
+    </footer>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarModal()">&times;</span>
+            <h2 id="titulo-proyecto"></h2>
+            <p id="info-proyecto"></p>
+        </div>
+    </div>
+
+    <script>
+        // Muestra información del proyecto en un modal
+        function mostrarProyecto(proyecto) {
+            const modal = document.getElementById("modal");
+            const titulo = document.getElementById("titulo-proyecto");
+            const info = document.getElementById("info-proyecto");
+
+            // Cambiar el contenido según el proyecto
+            if (proyecto === 1) {
+                titulo.textContent = "Proyecto 1";
+                info.textContent = "Descripción detallada del Proyecto 1.";
+            } else if (proyecto === 2) {
+                titulo.textContent = "Proyecto 2";
+                info.textContent = "Descripción detallada del Proyecto 2.";
+            } else if (proyecto === 3) {
+                titulo.textContent = "Proyecto 3";
+                info.textContent = "Descripción detallada del Proyecto 3.";
+            }
+
+            modal.style.display = "block";
+        }
+
+        // Cerrar el modal
+        function cerrarModal() {
+            document.getElementById("modal").style.display = "none";
+        }
+
+        // Animaciones al cargar
+        window.addEventListener('load', () => {
+            const sections = document.querySelectorAll('section');
+            sections.forEach((section, index) => {
+                setTimeout(() => {
+                    section.classList.add('visible');
+                }, index * 300); // Delay para la animación de cada sección
+            });
+        });
+    </script>
+</body>
+</html>
